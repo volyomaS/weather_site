@@ -1,4 +1,5 @@
 body {
+	margin: 0;
 	padding-left:25%;
 	padding-right: 25%;
 	font-family: "Bitter", serif;
@@ -13,28 +14,8 @@ main {
 		"weather_here update_weather update_weather ."
 		"main_city main_city weather_properties weather_properties"
 		"weather_image weather_temperature weather_properties weather_properties"
-		"favorites favorites input_city add_city"
+		"favorites favorites add_city add_city"
 		"another_cities another_cities another_cities another_cities";
-}
-
-@media only screen and (max-width: 650px) {
-	main {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: auto;
-		grid-template-areas:
-			"weather_here update_weather"
-			"main_city main_city"
-			"weather_image weather_temperature"
-			"weather_properties weather_properties"
-			"favorites ."
-			"input_city add_city"
-			"another_cities another_cities";
-	}
-	
-	.another_city {
-		width: 100%;
-	}
 }
 
 .weather_here {
@@ -55,6 +36,9 @@ main {
 
 .weather_image {
 	grid-area: weather_image;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
 .weather_temperature {
@@ -66,15 +50,31 @@ main {
 }
 
 .input_city {
-	grid-area: input_city;
+	background-color: #DCDCDC;
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	width: 80%;
 }
 
 .add_city {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 	grid-area: add_city;
 }
 
 .add_city_button {
-	border-radius: 10px;
+	margin-left: 15px;
+	padding-right: 12px;
+	padding-left: 12px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	font-size: 24px;
+	color: white;
+	border: none;
+	background-color: gray;
+	border-radius: 50%;
 }
 
 .another_cities {
@@ -86,7 +86,6 @@ main {
 
 .another_city {
 	width: 425px;
-	border: 1px black solid;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: auto;
@@ -96,21 +95,140 @@ main {
 }
 
 .another_city_name {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 	grid-area: another_city_name;
 }
 
 .another_city_temperature {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	grid-area: another_city_temperature;
+	font-size: 24px;
 }
 
 .another_city_weather_image {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 	grid-area: another_city_weather_image;
 }
 
 .another_city_close_button {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 	grid-area: another_city_close_button;
 }
 
 .another_city_properties {
 	grid-area: another_city_properties;
+}
+
+h1 {
+	font-size: 36px;
+	color: gray;
+}
+
+.update_weather {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.update_weather_button {
+	display: flex;
+	justify-content: center;
+	background-color: #C0C0C0;
+	border: none;
+	border-radius: 5px;
+	font-size: 12px;
+	padding: 14px 40px;
+	width: 75%;
+	color: #696969;
+}
+
+.main_city_name {
+	margin: 0;
+	font-size: 36px;
+}
+
+.weather_temperature_main {
+	margin: 0;
+	font-size: 108px;
+}
+
+ul {
+	margin: 0;
+	list-style-type: none;
+	padding: 0px;
+}
+
+li {
+	display: flex;
+	justify-content: space-between;
+	background-color: gray;
+	padding: 2%;
+	margin-right: 0px;
+	margin-left: 0px; 
+	margin-bottom: 3%;
+	color: white;
+	font-size: 14px;
+}
+
+b {
+	color: white;
+}
+
+.close_button {
+	border-radius: 50%;
+	background-color: gray;
+	border: none;
+	font-size: 16px;
+	padding: 10px 14px;
+	color: white;
+}
+
+#update_geo_img {
+	width: 36px;
+	height: 36px;
+	display: none;
+}
+
+@media only screen and (max-width: 900px) {
+	main {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas:
+			"weather_here update_weather"
+			"main_city main_city"
+			"weather_image weather_temperature"
+			"weather_properties weather_properties"
+			"favorites ."
+			"add_city add_city"
+			"another_cities another_cities";
+	}
+	
+	.another_city {
+		width: 100%;
+	}
+	body {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+	
+	#update_geo_text {
+		display: none;
+	}
+	
+	#update_geo_img {
+		display: block;
+	}
+	
+	.add_city {
+		justify-content: flex-start;
+	}
 }
