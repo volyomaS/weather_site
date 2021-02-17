@@ -1,0 +1,112 @@
+body {
+	padding-left:25%;
+	padding-right: 25%;
+	font-family: "Bitter", serif;
+	font-size: 18px;
+}
+
+main {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: auto;
+	grid-template-areas:
+		"weather_here update_weather update_weather ."
+		"main_city main_city weather_properties weather_properties"
+		"weather_image weather_temperature weather_properties weather_properties"
+		"favorites favorites input_city add_city"
+		"another_cities another_cities another_cities another_cities";
+}
+
+@media screen and (max-width: 600px) {
+	main {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas:
+			"weather_here update_weather"
+			"main_city main_city"
+			"weather_image weather_temperature"
+			"weather_properties weather_properties"
+			"favorites ."
+			"input_city add_city"
+			"another_cities another_cities";
+	}
+}
+
+.weather_here {
+	grid-area: weather_here;
+}
+
+.update_weather {
+	grid-area: update_weather;
+}
+
+.main_city {
+	grid-area: main_city;
+}
+
+.weather_properties {
+	grid-area: weather_properties;
+}
+
+.weather_image {
+	grid-area: weather_image;
+}
+
+.weather_temperature {
+	grid-area: weather_temperature;
+}
+
+.favorites {
+	grid-area: favorites;
+}
+
+.input_city {
+	grid-area: input_city;
+}
+
+.add_city {
+	grid-area: add_city;
+}
+
+.add_city_button {
+	border-radius: 10px;
+}
+
+.another_cities {
+	display: flex;
+	flex-wrap: wrap;
+	grid-area: another_cities;
+}
+
+.another_city {
+	min-width: 300px;
+	max-width: 600px;
+	border: 1px black solid;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: auto;
+	grid-template-areas:
+		"another_city_name another_city_temperature another_city_weather_image another_city_close_button"
+		"another_city_properties another_city_properties another_city_properties another_city_properties";
+}
+
+.another_city_name {
+	grid-area: another_city_name;
+}
+
+.another_city_temperature {
+	grid-area: another_city_temperature;
+}
+
+.another_city_weather_image {
+	grid-area: another_city_weather_image;
+}
+
+.another_city_close_button {
+	grid-area: another_city_close_button;
+}
+
+.another_city_properties {
+	grid-area: another_city_properties;
+}
