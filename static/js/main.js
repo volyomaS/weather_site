@@ -1,12 +1,12 @@
-function delete_city(element) {
+function delete_city(element, city_name) {
 	element.parentNode.parentNode.parentNode.remove();
+	window.localStorage.removeItem(city_name);
 }
 
 function add_city(city_name) {
 	let xhr = new XMLHttpRequest();
 	city_name = city_name.toLowerCase();
 	city_name = city_name.charAt(0).toUpperCase() + city_name.slice(1);
-	console.log(city_name);
 	xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=34f71b8b89066cd53a354da222c6de0c&units=metric`);
 	xhr.send();
 	xhr.onload = function() {
@@ -38,7 +38,7 @@ function add_city(city_name) {
 			// create div for close button
 			another_city_button = document.createElement("div");
 			another_city_button.classList.add("another_city_close_button");
-			another_city_button.innerHTML = `<button class="close_button" onclick="delete_city(this)">X</button>`;
+			another_city_button.innerHTML = `<button class="close_button" onclick="delete_city(this, '${city_name}')">X</button>`;
 			header.appendChild(another_city_button);
 			// adding header to li
 			new_city.appendChild(header);
@@ -61,7 +61,47 @@ function add_city(city_name) {
 	
 }
 
+function update_main_city(data) {
+	console.log(data.name);
+	document.getElementsByClassName("main_city_name")[0].innerHTML = data.name;
+	document.getElementsByClassName("weather_image")[0].innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" width=100 height=100></img>`
+	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">${data.main.temp}°C</span>`;
+	document.getElementsByClassName("weather_properties")[0].innerHTML = `<li><span class="property">Ветер</span>${data.wind.speed} m/s</li>
+<li><span class="property">Облачность</span>${data.weather[0].description}</li>
+<li><span class="property">Давление</span>${data.main.pressure} hpa</li>
+<li><span class="property">Влажность</span>${data.main.humidity} %</li>
+<li><span class="property">Координаты</span>[${data.coord.lon}, ${data.coord.lat}]</li>`;
+}
+
+function defaultGeo() {
+	let xhr = new XMLHttpRequest();
+	city_name = "Moscow";
+	xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=34f71b8b89066cd53a354da222c6de0c&units=metric`);
+	xhr.send();
+	xhr.onload = function() {
+		new_data = JSON.parse(xhr.response);
+		update_main_city(new_data);
+	}
+}
+
+function updateGeo(data) {
+	let lat = data.coords.latitude;
+	let lon = data.coords.longitude;
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=34f71b8b89066cd53a354da222c6de0c&units=metric`);
+	xhr.send();
+	xhr.onload = function() {
+		new_data = JSON.parse(xhr.response);
+		update_main_city(new_data);
+	}
+}
+
+function start_geo() {
+	navigator.geolocation.getCurrentPosition(updateGeo, defaultGeo);
+}
+
 function main() {
+	// add listener for enter
 	var input = document.getElementById("input_city");
 
 	input.addEventListener("keyup", function(event) {
@@ -70,8 +110,13 @@ function main() {
 			document.getElementById("add_city_button").click();
 		}
 	});
+	// get geolocation
+	start_geo();
 	
+	// add favorites
 	for (key in Object.keys(window.localStorage)) {
 		add_city(Object.keys(window.localStorage)[key]);
 	}
-}	
+}
+
+	
