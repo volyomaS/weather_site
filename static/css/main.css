@@ -88,13 +88,19 @@ main {
 	background-color: white;
 	color: black;
 	padding: 0;
-	width: 300px;
+	width: 350px;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(1, 1fr);
 	grid-template-rows: auto;
 	grid-template-areas:
-		"another_city_name another_city_temperature another_city_weather_image another_city_close_button"
-		"another_city_properties another_city_properties another_city_properties another_city_properties";
+		"another_city_header"
+		"another_city_properties";
+}
+
+.another_city_header {
+	display: flex;
+	justify-content: space-between;
+	grid-area: another_city_header
 }
 
 .another_city_name {
@@ -102,7 +108,13 @@ main {
 	justify-content: flex-start;
 	align-items: center;
 	grid-area: another_city_name;
+	/*word-break: break-all;*/
+	/*overflow: visible;*/
 }
+/*
+.another_city_name:hover {
+	overflow: visible;
+}*/
 
 .another_city_temperature {
 	font-weight: bold;
@@ -110,7 +122,8 @@ main {
 	justify-content: center;
 	align-items: center;
 	grid-area: another_city_temperature;
-	font-size: 30px;
+	font-size: 24px;
+	padding-left: 5%;
 }
 
 .another_city_weather_image {
@@ -142,7 +155,7 @@ h2 {
 }
 
 h3 {
-	font-size: 30px;
+	font-size: 24px;
 }
 
 .update_weather {
@@ -216,7 +229,7 @@ b {
 	font-weight: bold;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1020px) {
 	main {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -292,7 +305,7 @@ b {
 	}
 }
 
-@media only screen and (max-width: 345px) {
+@media only screen and (max-width: 395px) {
 	main {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -329,5 +342,53 @@ b {
 	
 	.weather_temperature_main {
 		font-size: 64px;
+	}
+}
+
+@media only screen and (max-width: 353px) {
+	main {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas:
+			"weather_here update_weather"
+			"main_city main_city"
+			"weather_image weather_temperature"
+			"weather_properties weather_properties"
+			"favorites ."
+			"add_city add_city"
+			"another_cities another_cities";
+	}
+	
+	.another_city {
+		width: 100%;
+	}
+	body {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	
+	#update_geo_text {
+		display: none;
+	}
+	
+	#update_geo_img {
+		display: block;
+	}
+	
+	.add_city {
+		justify-content: space-between;
+	}
+	
+	.weather_temperature_main {
+		font-size: 64px;
+	}
+	
+	h3 {
+		font-size: 20px;
+	}
+	
+	.another_city_temperature {
+		font-size: 20px;
 	}
 }
