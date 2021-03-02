@@ -265,7 +265,7 @@ b {
 	}
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 505px) {
 	main {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -305,7 +305,47 @@ b {
 	}
 }
 
-@media only screen and (max-width: 395px) {
+@media only screen and (max-width: 433px) {
+	main {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas:
+			"weather_here update_weather"
+			"main_city main_city"
+			"weather_image weather_temperature"
+			"weather_properties weather_properties"
+			"favorites ."
+			"add_city add_city"
+			"another_cities another_cities";
+	}
+	
+	.another_city {
+		width: 100%;
+	}
+	body {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+	
+	#update_geo_text {
+		display: none;
+	}
+	
+	#update_geo_img {
+		display: block;
+	}
+	
+	.add_city {
+		justify-content: space-between;
+	}
+	
+	.weather_temperature_main {
+		font-size: 56px;
+	}
+}
+
+@media only screen and (max-width: 390px) {
 	main {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -341,7 +381,7 @@ b {
 	}
 	
 	.weather_temperature_main {
-		font-size: 64px;
+		font-size: 48px;
 	}
 }
 
@@ -381,7 +421,7 @@ b {
 	}
 	
 	.weather_temperature_main {
-		font-size: 64px;
+		font-size: 36px;
 	}
 	
 	h3 {
