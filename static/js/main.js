@@ -4,6 +4,7 @@ function delete_city(element, city_name) {
 }
 
 function add_city(city_name) {
+	document.getElementsByClassName("fake_city")[0].display = "block";
 	let xhr = new XMLHttpRequest();
 	city_name = city_name.toLowerCase();
 	city_name = city_name.charAt(0).toUpperCase() + city_name.slice(1);
@@ -52,6 +53,7 @@ function add_city(city_name) {
 <li><span class="property">Координаты</span>[${data.coord.lon}, ${data.coord.lat}]</li>`;
 			new_city.appendChild(another_city_prop);
 			// appending child
+			document.getElementsByClassName("fake_city")[0].display = "none";
 			document.getElementsByClassName("another_cities")[0].appendChild(new_city);
 			if (window.localStorage.getItem(city_name) === null) {
 				window.localStorage.setItem(city_name, "");
@@ -62,7 +64,6 @@ function add_city(city_name) {
 }
 
 function update_main_city(data) {
-	console.log(data.name);
 	document.getElementsByClassName("main_city_name")[0].innerHTML = data.name;
 	document.getElementsByClassName("weather_image")[0].innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" width=100 height=100></img>`
 	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">${data.main.temp}°C</span>`;
@@ -97,6 +98,14 @@ function updateGeo(data) {
 }
 
 function start_geo() {
+	document.getElementsByClassName("main_city_name")[0].innerHTML = `Данные загружаются...`;
+	document.getElementsByClassName("weather_image")[0].innerHTML = `<img src="static/images/question_mark.png" width=100 height=100></img>`
+	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">???°C</span>`;
+	document.getElementsByClassName("weather_properties")[0].innerHTML = `<li><span class="property">Ветер</span>??? m/s</li>
+<li><span class="property">Облачность</span>???</li>
+<li><span class="property">Давление</span>??? hpa</li>
+<li><span class="property">Влажность</span>??? %</li>
+<li><span class="property">Координаты</span>[???, ???]</li>`;
 	navigator.geolocation.getCurrentPosition(updateGeo, defaultGeo);
 }
 
