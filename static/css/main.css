@@ -229,6 +229,10 @@ b {
 	font-weight: bold;
 }
 
+.fake_city {
+	display: none;
+}
+
 @media only screen and (max-width: 1020px) {
 	main {
 		display: grid;
