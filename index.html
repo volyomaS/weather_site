@@ -29,7 +29,7 @@
 			<img src="static/images/question_mark.png" width=100 height=100></img>
 		</div>
 		<div class="weather_temperature">
-			<span class="weather_temperature_main">???°C</span>
+			<span class="weather_temperature_main">???&#160;°C</span>
 		</div>
 		<ul class="weather_properties">
 			<li><span class="property">Ветер</span>??? m/s</li>
@@ -43,10 +43,10 @@
 		</div>
 		<div class="add_city">
 			<input id="input_city" class="input_city" placeholder="Добавить новый город"></input>
-			<button id="add_city_button" class="add_city_button" onclick="add_city(document.getElementById('input_city').value);document.getElementById('input_city').value = ''">+</button>
+			<button id="add_city_button" class="add_city_button" onclick="add_city(document.getElementById('input_city').value, false);document.getElementById('input_city').value = ''">+</button>
 		</div>
 		<ul class="another_cities">
-			<li class="another_city fake_city">
+			<li id="fake_city" class="another_city">
 				<div class="another_city_header">
 					<div class="another_city_name">
 						<h3>???</h3>
