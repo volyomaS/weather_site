@@ -128,8 +128,16 @@ function main() {
 	// get geolocation
 	start_geo();
 	
+	if (window.localStorage.getItem("clear") === null) {
+				window.localStorage.clear();
+				window.localStorage.setItem("clear", "");
+	}
+	
 	// add favorites
 	for (key in Object.keys(window.localStorage)) {
+		if (Object.keys(window.localStorage)[key] === "clear") {
+			continue;
+		}
 		add_city(window.localStorage[Object.keys(window.localStorage)[key]], true);
 	}
 }
