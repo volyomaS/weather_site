@@ -3,18 +3,24 @@ function delete_city(element, city_name) {
 	window.localStorage.removeItem(city_name);
 }
 
-function add_city(city_name) {
-	document.getElementsByClassName("fake_city")[0].display = "block";
+function add_city(city_name, first) {
+	document.getElementById("fake_city").style.display = "block";
 	let xhr = new XMLHttpRequest();
 	city_name = city_name.toLowerCase();
 	city_name = city_name.charAt(0).toUpperCase() + city_name.slice(1);
 	xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=34f71b8b89066cd53a354da222c6de0c&units=metric`);
 	xhr.send();
-	xhr.onload = function() {
-		if (xhr.status != 200) { 
+	xhr.addEventListener("load", function() {
+		if (xhr.status != 200) {
+			document.getElementById("fake_city").style.display = "none";
 			alert(`Ошибка, ${city_name} не найден!`);
 		} else {
 			data = JSON.parse(xhr.response);
+			if (!first && window.localStorage.getItem(data.id) !== null) {
+				document.getElementById("fake_city").style.display = "none";
+				alert(`Ошибка, ${city_name} уже есть!`);
+				return;
+			}
 			// create list item
 			new_city = document.createElement("li");
 			new_city.classList.add("another_city");
@@ -53,13 +59,13 @@ function add_city(city_name) {
 <li><span class="property">Координаты</span>[${data.coord.lon}, ${data.coord.lat}]</li>`;
 			new_city.appendChild(another_city_prop);
 			// appending child
-			document.getElementsByClassName("fake_city")[0].display = "none";
+			document.getElementById("fake_city").style.display = "none";
 			document.getElementsByClassName("another_cities")[0].appendChild(new_city);
-			if (window.localStorage.getItem(city_name) === null) {
-				window.localStorage.setItem(city_name, "");
+			if (window.localStorage.getItem(data.id) === null) {
+				window.localStorage.setItem(data.id, city_name);
 			}
 		}
-	}
+	})
 	
 }
 
@@ -100,7 +106,7 @@ function updateGeo(data) {
 function start_geo() {
 	document.getElementsByClassName("main_city_name")[0].innerHTML = `Данные загружаются...`;
 	document.getElementsByClassName("weather_image")[0].innerHTML = `<img src="static/images/question_mark.png" width=100 height=100></img>`
-	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">???°C</span>`;
+	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">???&#160;°C</span>`;
 	document.getElementsByClassName("weather_properties")[0].innerHTML = `<li><span class="property">Ветер</span>??? m/s</li>
 <li><span class="property">Облачность</span>???</li>
 <li><span class="property">Давление</span>??? hpa</li>
@@ -124,7 +130,7 @@ function main() {
 	
 	// add favorites
 	for (key in Object.keys(window.localStorage)) {
-		add_city(Object.keys(window.localStorage)[key]);
+		add_city(window.localStorage[Object.keys(window.localStorage)[key]], true);
 	}
 }
 
