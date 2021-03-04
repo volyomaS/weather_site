@@ -1,6 +1,12 @@
 function delete_city(element, city_name) {
 	element.parentNode.parentNode.parentNode.remove();
-	window.localStorage.removeItem(city_name);
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=34f71b8b89066cd53a354da222c6de0c&units=metric`);
+	xhr.send();
+	xhr.addEventListener("load", function() {
+		data = JSON.parse(xhr.response);
+		window.localStorage.removeItem(data.id);
+	})
 }
 
 function add_city(city_name, first) {
@@ -129,8 +135,8 @@ function main() {
 	start_geo();
 	
 	if (window.localStorage.getItem("clear") === null) {
-				window.localStorage.clear();
-				window.localStorage.setItem("clear", "");
+		window.localStorage.clear();
+		window.localStorage.setItem("clear", "");
 	}
 	
 	// add favorites
