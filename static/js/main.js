@@ -131,6 +131,14 @@ function main() {
 			document.getElementById("add_city_button").click();
 		}
 	});
+	
+	window.addEventListener("offline", function (e) {
+		document.getElementById("fake_city").style.display = "none";
+		document.getElementsByClassName("update_weather_button")[0].onclick = "";
+		document.getElementsByClassName("add_city_button")[0].onclick = "";
+		setTimeout(alert("You're went offline, reload page"), 1000);
+	});
+	
 	// get geolocation
 	start_geo();
 	
