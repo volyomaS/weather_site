@@ -41,7 +41,7 @@ function add_city(city_name, first) {
 			// create div for temperature
 			another_city_temp = document.createElement("div");
 			another_city_temp.classList.add("another_city_temperature");
-			another_city_temp.innerHTML = `<span>${data.main.temp}°C</span>`;
+			another_city_temp.innerHTML = `<span>${Math.round(data.main.temp)}°C</span>`;
 			header.appendChild(another_city_temp);
 			// create div for image
 			another_city_image = document.createElement("div");
@@ -78,7 +78,7 @@ function add_city(city_name, first) {
 function update_main_city(data) {
 	document.getElementsByClassName("main_city_name")[0].innerHTML = data.name;
 	document.getElementsByClassName("weather_image")[0].innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" width=100 height=100></img>`
-	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">${data.main.temp}°C</span>`;
+	document.getElementsByClassName("weather_temperature")[0].innerHTML = `<span class="weather_temperature_main">${Math.round(data.main.temp)}°C</span>`;
 	document.getElementsByClassName("weather_properties")[0].innerHTML = `<li><span class="property">Ветер</span>${data.wind.speed} m/s</li>
 <li><span class="property">Облачность</span>${data.weather[0].description}</li>
 <li><span class="property">Давление</span>${data.main.pressure} hpa</li>
